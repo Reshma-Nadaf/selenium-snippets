@@ -32,6 +32,5 @@ This repository includes code examples for:
 ## 🛠️ Tech Stack
 
 - **Language:** Java  
-- **Framework:** Selenium WebDriver  
-- **Build Tool:** Maven (if applicable)  
+- **Framework:** Selenium WebDriver   
 - **IDE:** Eclipse  
