@@ -1,0 +1,3 @@
+module NewProject {
+	requires org.testng;
+}

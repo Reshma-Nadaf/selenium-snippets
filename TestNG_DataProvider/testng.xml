@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="dataproviderSuit">
+    <test name="LoginTest">
+        
+        <classes>
+            <class name="com.reshu.LoginTest.LoginTest"/>
+        </classes>
+    </test>
+</suite>

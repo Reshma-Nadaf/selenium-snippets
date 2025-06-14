@@ -1,0 +1,46 @@
+package SeleniumConcepts;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class ActionClassTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		WebDriver driver = new ChromeDriver();
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\hasan\\eclipse-workspace\\SeleniumJavaProject\\Drivers\\chromedriver\\chromedriver.exe");
+
+		driver.get("https://www.amazon.in/");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+	
+		Actions act = new Actions(driver);
+		
+		WebElement searchTab = driver.findElement(By.id("twotabsearchtextbox"));
+		
+		act.click(searchTab).sendKeys("Phone").sendKeys(Keys.ENTER).perform();
+		
+		//using javascript to scroll
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0,300)");
+		
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		
+		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("(//h2/a/span)[position()=1]"))));
+		
+		act.moveToElement(driver.findElement(By.xpath("(//h2/a/span)[position()=1]"))).click().perform();
+		
+		
+	}
+
+}

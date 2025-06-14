@@ -1,0 +1,35 @@
+package SeleniumProjects;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class FindAllLinks {
+
+	public static void main(String[] args) {
+		
+		WebDriver driver = new ChromeDriver();
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\hasan\\Downloads\\chromedriver\\chromedriver-win32\\chromedriver.exe");
+		
+		driver.get("https://www.screener.in/");
+		
+		driver.findElement(By.xpath("//a[@class='button account']")).click();
+		driver.findElement(By.name("username")).sendKeys("reshmanadaf201@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("Screener@123");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+		for(WebElement l: links)
+		{
+			if(l.getText().equals("Screens"))
+			{
+				l.click();
+			}
+		}
+	
+	}
+
+}

@@ -1,0 +1,14 @@
+package Encapsulation;
+
+public class Test_Encapsulation {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		EncapsulationClass en = new EncapsulationClass();
+		en.setColor("red");
+		String carColor = en.getColor();
+		System.out.printf("the color of car is:", carColor);
+	}
+
+}

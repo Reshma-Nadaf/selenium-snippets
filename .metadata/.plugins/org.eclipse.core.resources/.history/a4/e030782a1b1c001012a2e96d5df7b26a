@@ -1,0 +1,35 @@
+package seleMiniProjects;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class ActionClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\hasan\\Downloads\\chromedriver\\chromedriver-win32\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		driver.get("https://demoqa.com/buttons");
+		driver.manage().window().maximize();
+		WebElement Button_clickMe = driver.findElement(By.xpath("//div/button[@type='droppable']"));
+		
+		Actions action = new Actions(driver);
+		action.moveToElement(Button_clickMe).perform();
+		action.clickAndHold(Button_clickMe).perform();
+		
+		driver.navigate().to("https://demoqa.com/droppable");
+		WebElement drag = driver.findElement(By.xpath("//div[contains(text(),'Drag me')]"));
+		WebElement drop = driver.findElement(By.id("droppable"));
+		action.dragAndDrop(drag, drop);
+		
+		
+		
+
+	}
+
+}

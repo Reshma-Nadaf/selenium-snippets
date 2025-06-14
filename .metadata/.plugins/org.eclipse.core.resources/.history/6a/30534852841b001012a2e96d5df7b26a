@@ -1,0 +1,12 @@
+package selenPracticeProjects;
+
+import org.openqa.selenium.WebDriver;
+
+public class FindAllLinks {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		WebDriver driver;
+	}
+
+}

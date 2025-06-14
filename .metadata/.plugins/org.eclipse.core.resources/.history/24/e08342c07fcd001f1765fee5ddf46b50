@@ -1,0 +1,3 @@
+module newApITests {
+	requires org.testng;
+}

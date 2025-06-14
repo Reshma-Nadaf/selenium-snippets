@@ -1,0 +1,6 @@
+package Abstraction;
+
+public interface Interface3 extends Interface, Interface2{
+
+	void printMethod3();
+}

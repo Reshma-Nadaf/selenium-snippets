@@ -1,0 +1,59 @@
+package seleMiniProjects;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import java.util.Set;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+
+
+public class alertActions {
+
+	public static void main(String[] args) {
+
+		WebDriver driver = new ChromeDriver();
+		Alert alt = driver.switchTo().alert();
+		alt.accept();
+		alt.dismiss();
+		alt.sendKeys("helllow");
+		
+	//-------------------------------------------------------	
+		String parentWindow = driver.getWindowHandle();
+		
+	  Set<String> window = driver.getWindowHandles();
+	  for(String windw: window)
+	  {
+		  if(windw != parentWindow)
+		  {
+			  driver.switchTo().window(windw);
+			  //perform acttions
+		  }
+	  }
+	  
+	 //--------------------------------------------------------
+	  Actions act = new Actions(driver);
+	  WebElement ele = driver.findElement(By.xpath(""));
+	  act.click(ele).perform();
+	  act.click(ele).build().perform();
+	  
+	  //-------------------------------------------------------
+	  
+	  
+		driver.switchTo().frame(0);
+		driver.switchTo().frame("frameid");
+		WebElement frame = driver.findElement(By.id("frameId"));
+		driver.switchTo().frame(frame);
+		driver.switchTo().defaultContent();
+	  
+	  
+	  
+	  
+	  
+	  
+	}
+
+}

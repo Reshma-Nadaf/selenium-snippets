@@ -1,0 +1,73 @@
+package TestPackage;
+
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.Assert;
+
+//import org.testng.Assert;
+
+import PayLoadPackage.payload;
+import UtilitiesPackage.RawToJson;
+
+public class UpdatePlace {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Adding a place 
+		RestAssured.baseURI= "https://rahulshettyacademy.com";
+		String response = given().log().all().
+		queryParam("key", "qaclick123").
+		header("Content-Type", "application/json").
+		body(payload.AddPlace()).
+		when().post("/maps/api/place/add/json").
+		//then().log().all().assertThat().statusCode(200).body("scope", equalTo("APP"))
+		then().assertThat().statusCode(200).body("scope", equalTo("APP"))
+		.header("server", "Apache/2.4.52 (Ubuntu)").extract().response().asString();		
+		//to store the respose in string use extract method
+		
+		System.out.println(response);
+		JsonPath js = new JsonPath(response); // parsing json
+		String placeID = js.getString("place_id");
+		System.out.println(placeID);
+		
+		
+		//updating the addres
+		String newAddress = "new west walk";
+		RestAssured.baseURI = "https://rahulshettyacademy.com";
+		given().log().all().queryParam("key", "qaclick123").
+		header("Content-Type", "application/json")
+		.body("{\r\n"
+				+ "\"place_id\":\""+placeID+"\",\r\n"
+				+ "\"address\":\""+newAddress+"\",\r\n"
+				+ "\"key\":\"qaclick123\"\r\n"
+				+ "}\r\n"
+				+ "").
+		when().put("/maps/api/place/update/json").
+		then().assertThat().log().all().statusCode(200).
+		body("msg", equalTo("Address successfully updated"));
+
+		// to verify if the address is changed use Get Method
+		
+		String newresponse = given().queryParam("key", "qaclick123").queryParam("place_id", placeID).
+		when().get("/maps/api/place/get/json").
+		then().log().all().assertThat().statusCode(200).extract().response().asString();
+		
+		
+		
+		String updatedAdd = RawToJson.convertToJson(newresponse, "address");
+		
+		//System.out.println(updatedAdd);
+		
+		Assert.assertEquals(updatedAdd, newAddress );
+		
+		
+		
+		
+	}
+
+}

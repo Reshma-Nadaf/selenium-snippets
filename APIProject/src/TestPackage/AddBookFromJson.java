@@ -1,0 +1,32 @@
+package TestPackage;
+
+import io.restassured.RestAssured;
+import static io.restassured.RestAssured.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import UtilitiesPackage.RawToJson;
+
+public class AddBookFromJson {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		//sending static json via json local file
+
+		RestAssured.baseURI= "http://216.10.245.166";
+		String reponse = given().log().all().header("Content-Type", "application/json")
+		.body(new String(Files.readAllBytes(Paths.get("C:\\Users\\hasan\\Downloads\\BookJson.json")))).
+		when().post("/Library/Addbook.php").
+		then().assertThat().statusCode(200).extract().response().asString();
+		
+
+		String id =RawToJson.convertToJson(reponse, "ID");
+		
+		System.out.println(id);
+
+
+	}
+
+}

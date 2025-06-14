@@ -1,0 +1,37 @@
+package ListenersTests;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class BaseClass {
+
+	public static WebDriver driver;
+	
+	public static void initilization()
+	{
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\hasan\\Downloads\\chromedriver\\chromedriver-win32\\chromedriver.exe");
+		driver = new ChromeDriver();
+		
+		driver.get("https://www.screener.in");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+	}
+	
+	public static void failedTest(String screenshotName)
+	{
+		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(scrFile, new File("C:\\Users\\hasan\\eclipse-workspace\\MySeleniumProject\\screenShot\\"+screenshotName+".jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

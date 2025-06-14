@@ -1,0 +1,109 @@
+package EcommerceApp;
+
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+import static io.restassured.RestAssured.*;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import Ecommerce_POJO.LoginPojo;
+import Ecommerce_POJO.LoginResponse;
+import Ecommerce_POJO.OrderDetail;
+
+import Ecommerce_POJO.Orders;
+import Specifications.SpecBuilderEcommerce;
+
+public class LoginTest {
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		//******************************
+		//*********Log In Test***********
+		//*******************************
+		
+		LoginPojo l = new LoginPojo();
+		l.setUserEmail("reshmakn@gmail.com");
+		l.setUserPassword("Reshu@123");
+		
+		RequestSpecification  request = given().spec(SpecBuilderEcommerce.RequestSpecBuilder()).body(l);
+		
+		LoginResponse logResponse = request.when().post("api/ecom/auth/login").then().log().all().spec(SpecBuilderEcommerce.ResponseSpecBuilder()).extract().response().as(LoginResponse.class);
+		
+		//System.out.println(res);
+		
+		
+		String token = logResponse.getToken();
+		String userID = logResponse.getUserId();
+		System.out.println(token);
+		
+		//******************************
+		//*******Add Product Test*******
+		//******************************
+		
+		RequestSpecification req = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").
+				addHeader("Authorization", token).build();
+		
+		RequestSpecification addProductReq = given().spec(req).param("productName", "NewLaptop").param("productAddedBy", userID).
+		param("productCategory", "Electronics").param("productSubCategory", "device").
+		param("productPrice", "11500").param("productDescription", "Dell").param("productFor", "ALL")
+		.multiPart("productImage",new File("C:\\Users\\hasan\\Desktop\\Laptop.jpg"));
+		
+		String addProdResponse = addProductReq.when().post("api/ecom/product/add-product").
+				then().log().all().spec(SpecBuilderEcommerce.ResponseSpecBuilderAddProd()).extract().response().asString();
+		
+		JsonPath js = new JsonPath(addProdResponse);
+		String prodcutID = js.getString("productId");
+		
+		System.out.println(prodcutID);
+		
+
+		//******************************
+		//******Create Order Test*******
+		//******************************
+		System.out.println("line 1");
+		RequestSpecification reqCreateOrder = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").
+				addHeader("Authorization", token).setContentType(ContentType.JSON).build();
+		
+		OrderDetail ord = new OrderDetail();
+		ord.setCountry("India");
+		ord.setProductOrderedId(prodcutID);
+		
+		List<OrderDetail> ordersList = new ArrayList<OrderDetail>();
+		ordersList.add(ord);
+		System.out.println("line 2");
+
+		Orders orders = new Orders();
+		orders.setOrders(ordersList);
+		System.out.println("line 3");
+		System.out.println(orders);
+
+		RequestSpecification CreateOrderReq =  given().log().all().spec(reqCreateOrder).body(orders);
+		System.out.println("line 4");
+
+		String resopnseCreateOrd = CreateOrderReq.when().post("/api/ecom/order/create-order").then().spec(SpecBuilderEcommerce.ResponseSpecBuilderAddProd())	
+		.extract().response().asString();
+		System.out.println("line 5");
+
+		System.out.println(resopnseCreateOrd);
+		
+		//Delete the product
+		
+		RequestSpecification deleteProduct = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").
+				addHeader("Authorization", token).build();
+		
+		RequestSpecification deleteProductreq = given().spec(deleteProduct);
+		String deleteProdres = deleteProductreq.when().post("api/ecom/product/delete-product/"+prodcutID).then()
+				.log().all().extract().response().asString();
+		System.out.println(deleteProductreq);
+	}
+
+}

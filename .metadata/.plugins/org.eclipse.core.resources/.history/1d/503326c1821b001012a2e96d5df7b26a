@@ -1,0 +1,3 @@
+module SelPracticeProjects {
+	requires org.seleniumhq.selenium.chrome_driver;
+}

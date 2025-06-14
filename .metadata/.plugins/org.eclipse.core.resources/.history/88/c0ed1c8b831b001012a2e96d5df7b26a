@@ -1,0 +1,3 @@
+module selenPracticeProjects {
+	requires org.seleniumhq.selenium.api;
+}

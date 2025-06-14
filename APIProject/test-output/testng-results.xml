@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-01-08T12:29:54 IST" name="Default suite" finished-at="2025-01-08T12:29:58 IST" duration-ms="3689">
+    <groups>
+    </groups>
+    <test started-at="2025-01-08T12:29:54 IST" name="Default test" finished-at="2025-01-08T12:29:58 IST" duration-ms="3689">
+      <class name="TestPackage.Addbook">
+        <test-method signature="AddBookToLib(java.lang.String,java.lang.String)[pri:0, instance:TestPackage.Addbook@102cec62]" started-at="2025-01-08T12:29:54 IST" name="AddBookToLib" data-provider="booksData" finished-at="2025-01-08T12:29:56 IST" duration-ms="2314" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[ddswd]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[2651]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AddBookToLib -->
+        <test-method signature="AddBookToLib(java.lang.String,java.lang.String)[pri:0, instance:TestPackage.Addbook@102cec62]" started-at="2025-01-08T12:29:56 IST" name="AddBookToLib" data-provider="booksData" finished-at="2025-01-08T12:29:58 IST" duration-ms="1149" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[dfcdf]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[2866]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AddBookToLib -->
+        <test-method signature="AddBookToLib(java.lang.String,java.lang.String)[pri:0, instance:TestPackage.Addbook@102cec62]" started-at="2025-01-08T12:29:58 IST" name="AddBookToLib" data-provider="booksData" finished-at="2025-01-08T12:29:58 IST" duration-ms="154" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[dchwd]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[9277]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AddBookToLib -->
+      </class> <!-- TestPackage.Addbook -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

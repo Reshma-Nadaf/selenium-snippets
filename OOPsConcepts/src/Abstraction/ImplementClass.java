@@ -1,0 +1,16 @@
+package Abstraction;
+
+public class ImplementClass implements Interface  {
+	
+	public void printMethod()
+	{
+		System.out.println("implementing the interface");
+	}
+
+	public void printmethod2()
+	{
+		System.out.println("implementing interface 2");
+	}
+	
+	
+}

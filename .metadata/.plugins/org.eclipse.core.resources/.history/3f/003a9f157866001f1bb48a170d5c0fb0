@@ -1,0 +1,10 @@
+package SeleniumConcepts;
+
+public class ExtentReportsTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,38 @@
+package PageFactory;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class PageFactoryTest extends BaseClass {
+
+
+	WebDriver driver ;
+	PageClass pg;
+	
+    
+	
+	@BeforeTest()
+	public void initilize()
+	{		
+		  driver = new ChromeDriver();
+	      driver.get("https://example.com");
+	      pg = new PageClass(driver);
+	        
+	}
+	@Test
+	public void TestPageFactory()
+	{
+		
+		pg.clickFromElement();
+		
+	}
+}

@@ -1,0 +1,41 @@
+package com.reshu.LoginTest;
+
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.reshu.base.BaseTest;
+
+public class LoginTest extends BaseTest{
+
+	@DataProvider(name = "logindata")
+	public Object[][] getData()
+	{
+		return new Object[][] {
+			{"student", "Password123", true},
+            {"student", "wrongPassword", true},
+            {"wrongUser", "Password123", false}
+		};
+	}
+	
+	@Test(dataProvider = "logindata")
+	public void TestLogin(String username, String password, boolean shouldPass)
+	{
+        driver.get("https://practicetestautomation.com/practice-test-login/");
+        driver.findElement(By.id("username")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.id("submit")).click();
+        
+        if(shouldPass)
+        {
+        	boolean isLoggedIn = driver.getCurrentUrl().contains("logged-in-successfully");
+        	 Assert.assertTrue(isLoggedIn, "Login should pass but failed");  
+        	 }
+        else {
+        	
+        	boolean isErrorDisplayed = driver.findElement(By.id("error")).isDisplayed();
+            Assert.assertTrue(isErrorDisplayed, "Login should fail but passed.");
+        }
+	}
+}
